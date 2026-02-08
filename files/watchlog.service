@@ -1,0 +1,8 @@
+[Unit]
+Description=My watchlog service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/watchlog.conf
+ExecStart=/opt/watchlog.sh "${WORD}" "${LOG}"
+RemainAfterExit=no

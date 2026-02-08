@@ -1,0 +1,22 @@
+[Unit]
+Description=Spawn-fcgi startup service by Otus
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=$PIDFile
+EnvironmentFile=/etc/spawn-fcgi/fcgi.conf
+
+ExecStart=/usr/bin/spawn-fcgi -n $OPTIONS
+ExecStop=/bin/kill -TERM $MAINPID
+ExecStopPost=/bin/rm -f $PIDFile
+
+# Kill child processes
+KillMode=control-group
+TimeoutStopSec=10
+
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target
